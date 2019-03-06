@@ -13,6 +13,6 @@ function connect(dbHost, dbName) {
     });
 }
 
-module.exports = {connect};
+module.exports = { connect };
 
 

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const {connect} = require('../config/db/mongoose');
 
-const shopRoutes = require('../controllers/shop.controller')
+const shopRoutes = require('../api/controllers/shop.controller')
 
 
 
