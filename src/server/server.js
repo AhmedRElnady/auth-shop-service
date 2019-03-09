@@ -12,9 +12,13 @@ const shopRoutes = require('../api/controllers/shop.controller')
 
 function bootstrap(port, dbHost, dbName) {
    return new Promise(async (resolve, reject) => {
-    await connect(dbHost, dbName);
+    const dbInstance = await connect(dbHost, dbName);
 
-    
+    app.use((req, res, next)=> {
+        req.db = dbInstance;
+        next();
+    });
+
     app.use('/', (req, res, next) => {
 
         let contype = req.headers['content-type'];
@@ -28,7 +32,7 @@ function bootstrap(port, dbHost, dbName) {
     app.use(bodyParser.json({ limit: '100mb'}));
     app.use(bodyParser.urlencoded({ extended: false }));
 
-    app.use('/api/shops', shopRoutes);
+    app.use('/shops', shopRoutes);
 
 
     

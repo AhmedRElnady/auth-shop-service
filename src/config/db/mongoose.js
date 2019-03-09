@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
+
+
 function connect(dbHost, dbName) {
+    
     return new Promise ((resolve, reject) => {
+         
         mongoose.connect(`mongodb://localhost/${dbName}`)
-            .then(() => {
+            .then((db) => {
                 console.log(".... Shops DB connected successfully ....");
-                resolve();
+                
+                resolve(db);
             })
             .catch((err)=> {
                 reject(err);
@@ -13,6 +18,11 @@ function connect(dbHost, dbName) {
     });
 }
 
-module.exports = { connect };
+
+module.exports = {
+    connect
+};
+
+
 
 
