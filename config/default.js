@@ -1,31 +1,45 @@
 module.exports = {
-   acl : {
-      prefix: 'acl_',
-      roles: [{
-         roles: ["super-admin"],
-         allows: [{
+   _acl: {
+      roles: {
+         SUPER_ADMIN: {
             resources: [
-               "/shops",
-               "/shops/:id"
+               "/",
+               "/:id"
             ],
-            permissions: "*"
-         }]
-      }, {
-         roles: ["shop-admin"],
-         allows: [{
+            permissions: ["get"]
+         },
+         SHOP_ADMIN: {
             resources: [
-               "/shops/:id"
+               "/:id"
             ],
             permissions: ["get", "patch", "delete"]
-         }]
-      }, {
-         roles: ["customer"], 
-         allows: [{
+         },
+         CUSTOMER: {
             resources: [
-               "/shops/:id/subscribe"
+               "/:id/subscribe"
             ],
             permissions: ["post", "delete"]
-         }]
-      }], 
-   }  
+         }
+      }
+   },
+   shop_admin_privileges: {
+      read: "get",
+      edit: "patch",
+      delete: "delete"
+   },
+   MS: {
+      shop: {
+         url: "http://localhost:4000",
+         prefix: "shops"
+      },
+      shop_admin: {
+         url: "http://localhost:5000",
+         prefix: "shop-admins"
+      },
+      customer: {
+         url: "http://localhost:6000",
+         prefix: "customers"
+      }
+   },
+
 }
