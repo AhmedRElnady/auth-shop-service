@@ -48,8 +48,6 @@ function _authorize() {
                     }
 
 
-                    console.log(">>>> ^^^^^ >>>>", allowedResources, allowedPermissions);
-
                     if (allowedResources.includes(reqResource) && allowedPermissions.includes(reqMethod)) {
                         next();
                     } else {
