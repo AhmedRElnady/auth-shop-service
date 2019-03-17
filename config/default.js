@@ -6,7 +6,7 @@ module.exports = {
                "/",
                "/:id"
             ],
-            permissions: ["get"]
+            permissions: ["get" ,"post"]
          },
          SHOP_ADMIN: {
             resources: [

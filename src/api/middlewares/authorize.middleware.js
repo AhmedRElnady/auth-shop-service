@@ -25,13 +25,14 @@ function _authorize() {
 
                     // todo: move it to a seperate function 
                     if (userRole === 'SHOP_ADMIN') {
-                        // if admin not approved or don't have shopId or he is not the owner of this shop, just fire him.
+                        // if admin [not approved] or [not activated] or [don't have shopId] or [he is not the owner of this shop], just fire him.
                         const approved = tokenPayload.approved,
+                            activated = tokenPayload.activated,
                             adminShopId = tokenPayload.shopId,
                             requestedShopId = req.params && req.params.id;
 
 
-                        if (!approved || !adminShopId || (requestedShopId !== adminShopId))
+                        if (!approved || !activated || !adminShopId || (requestedShopId !== adminShopId))
                             return res.json({ msg: "Insufficient permissions to access resource" })
 
 
@@ -40,6 +41,7 @@ function _authorize() {
                         const shopAdminDetails = await _apiAdapter.get(`/${shopAdminPrefix}/${GWUserID}`)
 
                         const privileges = shopAdminDetails.data.permissions;
+
                         allowedPermissions = [];
                         for (let pri in privileges) {
                             if (privileges[pri])
@@ -47,11 +49,11 @@ function _authorize() {
                         };
                     }
 
-
                     if (allowedResources.includes(reqResource) && allowedPermissions.includes(reqMethod)) {
+                        req.GWUserID = GWUserID;
                         next();
                     } else {
-                        res.res.json({ msg: "Insufficient permissions to access resource" }) // 403
+                        res.json({ msg: "Insufficient permissions to access resource" }) // 403
                     }
 
                     break;

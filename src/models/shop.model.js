@@ -7,8 +7,8 @@ const shopScheam = new mongoose.Schema({ /// i make it a one way embedding with 
         required: true
     },
     subscribersNumber: {
-        type: Number, 
-        required: true
+        type: Number,
+        default: 0
     },
     description:{
         type: String
